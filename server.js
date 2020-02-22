@@ -42,21 +42,22 @@ server.get("/", function(req, res){
 
 server.post("/", function(req, res){
     //Pegar dados do formulário.
-    const name = req.body.name  
+    const name = req.body.name 
+    const tel = req.body.tel 
     const email = req.body.email  
     const blood = req.body.blood  
 
-    if(name == "" || email == "" || blood == ""){
-        return res.send ("Todos os campos devem ser vazios!!!")
+    if(name == "" || tel == "" || email == "" || blood == ""){
+        return res.send ("Todos os campos devem ser preenchidos!!!")
 
     }
 
     //Colocando valores dentro do banco de dados.
     const query = `
-    INSERT INTO donors ("name", "email", "blood")
-    VALUES ($1, $2, $3)`
+    INSERT INTO donors ("name", "tel", "email", "blood")
+    VALUES ($1, $2, $3, $4)`
 
-    const values = [name, email, blood]
+    const values = [name, tel, email, blood]
     db.query(query, values, function(err){
         // Fluxo de erros
         if(err) 
